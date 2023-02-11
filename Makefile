@@ -6,3 +6,7 @@ lint:
 	flake8 gendiff/scripts/
 	isort --check-only gendiff/scripts/
 	mypy gendiff/scripts/
+
+test:
+	coverage run -m pytest tests/test_.py
+	coverage report -m
