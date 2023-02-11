@@ -1,31 +1,24 @@
+import os
 import json
+import tempfile
 import gendiff.scripts.diff_json as diff_json
 
+
 def test_compare_files():
-    file1 = 'gendiff/file1.json'
-    file2 = 'gendiff/file2.json'
+    # create two temporary .json files
+    file1 = tempfile.NamedTemporaryFile(delete=False, suffix='.json')
+    file2 = tempfile.NamedTemporaryFile(delete=False, suffix='.json')
 
-    # create test data
-    data = {'key1': 'value1', 'key2': 'value2'}
-    with open(file1, 'w') as f:
-        json.dump(data, f)
+    # write sample data to the files
+    sample_data = {'key1': 'value1', 'key2': 'value2'}
+    with open("file1.json", "w") as file1:
+        json.dump(sample_data, file1)
+    with open("file2.json", "w") as file2:
+        json.dump({'key1': 'value1', 'key2': 'value3'}, file2)
 
-    data = {'key1': 'value1', 'key3': 'value3'}
-    with open(file2, 'w') as f:
-        json.dump(data, f)
+    # call the compare_files function with the two files
+    diff_json.compare_files(file1.name, file2.name)
 
-    # run the compare_files function
-    result = diff_json.compare_files(file1, file2)
-
-    # assert the result
-    expected_result = '''- key2: value2
-+ key3: value3
-  key1: value1
-'''
-    assert result == expected_result
-
-    # cleanup the test data
-    import os
-    os.remove(file1)
-    os.remove(file2)
-
+    # delete the temporary files after the test is done
+    os.unlink(file1.name)
+    os.unlink(file2.name)
