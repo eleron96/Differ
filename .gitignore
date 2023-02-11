@@ -2,4 +2,5 @@
 /venv/*
 /.github/*
 /.vscode/*
-/.idea/
+/.idea/*
+/dist/*
