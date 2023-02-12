@@ -9,8 +9,6 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        platform: [ ubuntu-latest, macOS-latest ]
-        node: [ '12', '10' ]
         # we want to test our package on several versions of Python
         python-version: [3.8, 3.9, 3.11]
     steps:
