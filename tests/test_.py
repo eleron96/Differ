@@ -22,3 +22,4 @@ def test_compare_files():
     # delete the temporary files after the test is done
     os.unlink(file1.name)
     os.unlink(file2.name)
+
