@@ -21,6 +21,7 @@ jobs:
         run: |
           pip install poetry
           pip install flake8
+          pip install mypy
           poetry install
       - name: Run linter and pytest
         run: |
