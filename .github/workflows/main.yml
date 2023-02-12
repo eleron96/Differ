@@ -23,7 +23,7 @@ jobs:
           poetry install
       - name: Run linter and pytest
         run: |
-          poetry run make check
+          poetry run make lint
       - name: Test & publish code coverage
         uses: paambaati/codeclimate-action@v3.2.0
         if: github.ref_name == 'main'
