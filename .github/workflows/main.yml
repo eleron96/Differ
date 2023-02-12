@@ -1,35 +1,33 @@
 name: Python CI
 
 on:
-  - push
-  - pull_request
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        # we want to test our package on several versions of Python
         python-version: [3.8, 3.9, 3.11]
     steps:
-      - uses: actions/checkout@v3
-      - name: Set up Python ${{ matrix.python-version }}
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
-        # make depends on poetry
+
       - name: Install dependencies
         run: |
-          pip install poetry
-          make install
-      - name: Run linter and pytest
+          poetry install
+
+      - name: Lint and Test
         run: |
-          make check
-      - name: Test & publish code coverage
-        uses: paambaati/codeclimate-action@v3.2.0
-        if: github.ref_name == 'main'
-        env:
-          CC_TEST_REPORTER_ID: ccfc3f619871f6e9c6aa628ce7a58250a3a349280a9934d553952501838bb586
-        with:
-          coverageCommand: make test-coverage
-          debug: true
+          poetry run flake8
+          poetry run pytest
