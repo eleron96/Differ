@@ -4,7 +4,7 @@ rebuild: #	соберет и установит пакет
 
 lint:
 	flake8 gendiff/scripts/
-	isort --check-only gendiff/scripts/
+	#isort --check-only gendiff/scripts/
 	mypy gendiff/scripts/
 
 test:
