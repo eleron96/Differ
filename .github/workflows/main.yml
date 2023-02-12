@@ -30,5 +30,5 @@ jobs:
         env:
           CC_TEST_REPORTER_ID: ccfc3f619871f6e9c6aa628ce7a58250a3a349280a9934d553952501838bb586
         with:
-          coverageCommand: poetry run make test-coverage
+          coverageCommand: poetry run make test
           debug: true
