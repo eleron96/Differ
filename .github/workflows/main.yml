@@ -21,14 +21,20 @@ jobs:
         run: |
           pip install poetry
 
-      - name: "Install requirements"
+      - name: "Install dependencies"
         run: |
-          make install requirements.txt
-          make rebuild
+          make install
+          make build
+          make publish
+          make package-install
 
       - name: "Run linters"
         run: |
           make lint
+
+      - name: "Run tests"
+        run: |
+          make test
 
       - name: "Code coverage"
         run: |

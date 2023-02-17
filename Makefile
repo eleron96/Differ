@@ -1,21 +1,26 @@
-rebuild: #	соберет и установит пакет
+
+install:
+	poetry install
+
+build:
 	poetry build
-	pip install dist/hexlet_code-0.1.0.tar.gz
+
+publish:
+	poetry publish --dry-run
+
+package-install:
+	python3 -m pip install --user dist/*.whl --force-reinstall
+
 
 lint:
-	flake8 gendiff/scripts/
-	#isort --check-only gendiff/scripts/
-	mypy gendiff/scripts/
+	poetry run flake8 gendiff
 
-coverage test:
-	#coverage run --source=gendiff -m pytest tests/test_.py
-	#coverage report -m
-	coverage run --source=gendiff -m pytest tests/
-	coverage report
+test:
+	poetry run pytest tests
 
+coverage-test:
+	poetry run pytest --cov=coverage tests/ --cov-report xml
 
-install requirements:
-	pip install -r requirements.txt
 
 
 
