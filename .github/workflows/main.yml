@@ -23,7 +23,7 @@ jobs:
 
       - name: "Install requirements"
         run: |
-          make install requirements
+          make install requirements.txt
 
       - name: "Run linters"
         run: |
