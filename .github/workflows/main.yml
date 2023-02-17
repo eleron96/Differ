@@ -43,5 +43,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.TEST_REPORTER_ID }}
         run: |
-          ./cc-test-reporter after-build -r "$GITHUB_TOKEN" --input-type=coverage.py
+          ./cc-test-reporter after-build -r "$GITHUB_TOKEN" --coverage-input-type=coverage.py
+
 
