@@ -1,35 +1,45 @@
 name: Python CI
 
 on:
-  - push
-  - pull_request
+  push:
+    branches:
+      - "**"
+    tags:
+      - "**"
+
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        # we want to test our package on several versions of Python
-        python-version: [3.11]
     steps:
-      - uses: actions/checkout@v3
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v4
+      - uses: actions/checkout@v2
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v2
         with:
-          python-version: ${{ matrix.python-version }}
-        # make depends on poetry
-      - name: Install dependencies
+          python-version: "3.11"
+      - name: "Install poetry"
         run: |
           pip install poetry
-          make rebuild
-      - name: Run linter and pytest
+
+      - name: "Install requirements"
+        run: |
+          make install requirements
+
+      - name: "Run linters"
         run: |
           make lint
-      - name: Test & publish code coverage
-        uses: paambaati/codeclimate-action@v3.2.0
-        if: github.ref_name == 'main'
+
+      - name: "Code coverage"
+        run: |
+          curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+          chmod +x ./cc-test-reporter
+          ./cc-test-reporter before-build
+      - name: "Test"
+        run: |
+          make coverage test
+
+      - name: "Sending reporter"
         env:
-          CC_TEST_REPORTER_ID: ccfc3f619871f6e9c6aa628ce7a58250a3a349280a9934d553952501838bb586
-        with:
-          coverageCommand: make test
-          debug: true
+          GITHUB_TOKEN: ${{ secrets.TEST_REPORTER_ID }}
+        run: |
+          ./cc-test-reporter after-build -r "$GITHUB_TOKEN"
