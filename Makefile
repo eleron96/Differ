@@ -8,8 +8,8 @@ lint:
 	mypy gendiff/scripts/
 
 coverage test:
-	coverage run -m pytest tests/test_.py
-	#coverage report -m
+	#coverage run -m pytest tests/test_.py
+	coverage report -m
 
 install requirements:
 	pip install -r requirements.txt
