@@ -51,4 +51,9 @@ jobs:
         run: |
           ./cc-test-reporter after-build -r "$GITHUB_TOKEN" --coverage-input-type=coverage.py
 
+#      - name: Run Snyk to check for vulnerabilities
+#        uses: snyk/actions/node@master
+#        env:
+#          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
 
