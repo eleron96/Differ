@@ -2,6 +2,12 @@ import os
 import json
 import tempfile
 import gendiff.scripts.diff_json as diff_json
+import gendiff.scripts.gendiff as gn
+
+import argparse
+import sys
+import pytest
+
 
 
 def test_compare_files():
@@ -18,8 +24,22 @@ def test_compare_files():
 
     # call the compare_files function with the two files
     diff_json.compare_files(file1.name, file2.name)
-
-    # delete the temporary files after the test is done
     os.unlink(file1.name)
     os.unlink(file2.name)
 
+
+def test_main_no_args(capsys):
+    with pytest.raises(SystemExit):
+        gn.main()
+    captured = capsys.readouterr()
+    assert captured.err.startswith("usage: gendiff")
+    assert captured.out == ""
+
+
+# def test_main_with_empty_files(capsys):
+#     with StringIO() as out:
+#         sys.stdout = out
+#         args = argparse.Namespace(first_file="empty.json", second_file="empty.json", format="pretty")
+#         sys.argv = ["gendiff.py", "empty.json", "empty.json", "--format=pretty"]
+#         gn.main()
+#         assert out.getvalue() == "{\n}\n"

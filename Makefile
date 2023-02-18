@@ -9,7 +9,7 @@ publish:
 	poetry publish --dry-run
 
 package-install:
-	python3 -m pip install --user dist/*.whl --force-reinstall
+	python3 -m pip install dist/*.whl --force-reinstall
 
 
 lint:
@@ -17,6 +17,7 @@ lint:
 
 test:
 	poetry run pytest tests
+	#coverage report -m
 
 coverage:
 	poetry run pytest --cov=gendiff tests/ --cov-report xml
