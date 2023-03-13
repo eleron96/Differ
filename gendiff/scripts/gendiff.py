@@ -16,12 +16,13 @@ def main():
     args = parser.parse_args()
     first_file_path = os.path.join('gendiff', args.first_file)
     second_file_path = os.path.join('gendiff', args.second_file)
-    # print(diff_json.compare_files(first_file_path, second_file_path))
 
     if args.format == "nest":
         print(diff_json.compare_files(first_file_path, second_file_path))
-    elif args.format == "flat":
-        pass
+    elif args.format == "plain":
+        print(diff_json.compare_files_plain(first_file_path, second_file_path))
+    elif args.format == "json":
+        print(diff_json.compare_files_json(first_file_path, second_file_path))
 
 
 
