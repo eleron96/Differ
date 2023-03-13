@@ -3,9 +3,6 @@ import json
 import tempfile
 import gendiff.scripts.diff_json as diff_json
 import gendiff.scripts.gendiff as gn
-
-import argparse
-import sys
 import pytest
 
 
@@ -36,10 +33,4 @@ def test_main_no_args(capsys):
     assert captured.out == ""
 
 
-# def test_main_with_empty_files(capsys):
-#     with StringIO() as out:
-#         sys.stdout = out
-#         args = argparse.Namespace(first_file="empty.json", second_file="empty.json", format="pretty")
-#         sys.argv = ["gendiff.py", "empty.json", "empty.json", "--format=pretty"]
-#         gn.main()
-#         assert out.getvalue() == "{\n}\n"
+
