@@ -25,6 +25,5 @@ def main():
         print(diff_json.compare_files_json(first_file_path, second_file_path))
 
 
-
 if __name__ == '__main__':
     main()
