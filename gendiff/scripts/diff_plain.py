@@ -6,21 +6,25 @@ def load_json_file(file_path):
         return json.load(f)
 
 
+def compare_values(val1, val2, path):
+    if val1 == val2:
+        return []
+    if isinstance(val1, dict) and isinstance(val2, dict):
+        return compare_dicts(val1, val2, path)
+    if isinstance(val1, dict):
+        return [f"Property '{path}' was updated. "
+                f"From [complex value] to {val2}"]
+    return [f"Property '{path}' was updated. "
+            f"From {val1} to {val2}"]
+
+
 def compare_dicts(d1, d2, path=''):
     result = []
     keys = sorted(set(d1.keys()).union(d2.keys()))
     for key in keys:
         p = f"{path}.{key}" if path else key
         if key in d1 and key in d2:
-            if isinstance(d1[key], dict) and isinstance(d2[key], dict):
-                result.extend(compare_dicts(d1[key], d2[key], path=p))
-            elif d1[key] != d2[key]:
-                if isinstance(d1[key], dict):
-                    result.append(f"Property '{p}' was updated. "
-                                  f"From [complex value] to {d2[key]}")
-                else:
-                    result.append(f"Property '{p}' was updated. "
-                                  f"From {d1[key]} to {d2[key]}")
+            result.extend(compare_values(d1[key], d2[key], p))
         elif key in d1:
             result.append(f"Property '{p}' was removed")
         elif key in d2:
