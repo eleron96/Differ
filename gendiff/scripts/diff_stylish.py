@@ -1,6 +1,6 @@
 import json
 
-
+# flake8: noqa: C901
 def compare_files_stylish(file1, file2, indent=4):
     j_file1 = json.load(open(file1))
     j_file2 = json.load(open(file2))
