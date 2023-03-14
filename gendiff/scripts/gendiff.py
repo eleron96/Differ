@@ -28,5 +28,5 @@ def generate_diff():
         print(diff_json.compare_files_json(first_file_path, second_file_path))
 
 
-if __name__ == '__main__':
-    generate_diff()
+# if __name__ == '__main__':
+#     generate_diff()
