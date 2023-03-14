@@ -2,7 +2,7 @@ import os
 import json
 import tempfile
 import gendiff.scripts.diff_json as diff_json
-import gendiff.scripts.gendiff as gn
+from gendiff import gendiff as gn
 import pytest
 
 
