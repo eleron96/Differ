@@ -1,5 +1,6 @@
 import json
 
+
 # flake8: noqa: C901
 def compare_dicts(d1, d2, indent_level, indent):
     indent_str = ' ' * (indent * indent_level)

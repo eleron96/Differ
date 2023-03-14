@@ -2,6 +2,8 @@ import os
 import json
 import tempfile
 import gendiff.scripts.diff_json as diff_json
+import gendiff.scripts.diff_plain as diff_plain
+import gendiff.scripts.diff_stylish as diff_stylish
 from gendiff.scripts import gendiff as gn
 import pytest
 
@@ -21,6 +23,8 @@ def test_compare_files():
 
     # call the compare_files function with the two files
     diff_json.compare_files_json(file1.name, file2.name)
+    diff_plain.compare_files_plain(file1.name, file2.name)
+    diff_stylish.compare_files_stylish(file1.name, file2.name)
     os.unlink(file1.name)
     os.unlink(file2.name)
 
