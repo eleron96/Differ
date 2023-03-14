@@ -20,14 +20,14 @@ def test_compare_files():
         json.dump({'key1': 'value1', 'key2': 'value3'}, file2)
 
     # call the compare_files function with the two files
-    diff_json.compare_files(file1.name, file2.name)
+    diff_json.compare_files_json(file1.name, file2.name)
     os.unlink(file1.name)
     os.unlink(file2.name)
 
 
 def test_main_no_args(capsys):
     with pytest.raises(SystemExit):
-        gn.main()
+        gn.generate_diff()
     captured = capsys.readouterr()
     assert captured.err.startswith("usage: gendiff")
     assert captured.out == ""
