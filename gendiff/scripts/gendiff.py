@@ -5,7 +5,7 @@ import gendiff.scripts.diff_json as diff_json
 import os
 
 
-def generate_diff(args=None):
+def parse_arguments():
     parser = argparse.ArgumentParser(
         description='Compares two configuration files and shows a difference.'
     )
@@ -14,22 +14,22 @@ def generate_diff(args=None):
     parser.add_argument('-f', '--format', dest='format',
                         default='stylish', help='set format of output')
 
-    if args is None:
-        args = parser.parse_args()
-    else:
-        args = parser.parse_args(args)
+    return parser.parse_args()
 
-    first_file_path = os.path.join('gendiff', args.first_file)
-    second_file_path = os.path.join('gendiff', args.second_file)
 
-    if args.format == "stylish":
-        print(diff_stylish.compare_files_stylish(first_file_path,
-                                                 second_file_path))
-    elif args.format == "plain":
-        print(diff_plain.compare_files_plain(first_file_path, second_file_path))
-    elif args.format == "json":
-        print(diff_json.compare_files_json(first_file_path, second_file_path))
+def generate_diff(first_file, second_file, format):
+    first_file_path = os.path.join('gendiff', first_file)
+    second_file_path = os.path.join('gendiff', second_file)
+
+    if format == "stylish":
+        return diff_stylish.compare_files_stylish(first_file_path, second_file_path)
+    elif format == "plain":
+        return diff_plain.compare_files_plain(first_file_path, second_file_path)
+    elif format == "json":
+        return diff_json.compare_files_json(first_file_path, second_file_path)
 
 
 if __name__ == "__main__":
-    diff = generate_diff()
+    args = parse_arguments()
+    result = generate_diff(args.first_file, args.second_file, args.format)
+    print(result)
