@@ -1,4 +1,5 @@
 import json
+import yaml
 
 
 def compare_dicts(d1, d2, indent_level, indent):
@@ -61,10 +62,19 @@ def handle_key_in_d2(d2, key, indent_level, indent):
     return result
 
 
+def load_file(file_path):
+    with open(file_path) as f:
+        if file_path.endswith('.json'):
+            return json.load(f)
+        elif file_path.endswith('.yml') or file_path.endswith('.yaml'):
+            return yaml.safe_load(f)
+        else:
+            raise ValueError('Unsupported file format')
+
+
 def compare_files_stylish(file1, file2, indent=4):
-    with open(file1) as f1, open(file2) as f2:
-        j_file1 = json.load(f1)
-        j_file2 = json.load(f2)
+    j_file1 = load_file(file1)
+    j_file2 = load_file(file2)
 
     result = compare_dicts(j_file1, j_file2, 0, indent)
     return '\n'.join(result)
