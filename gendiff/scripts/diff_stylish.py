@@ -2,7 +2,6 @@ import json
 
 
 def compare_dicts(d1, d2, indent_level, indent):
-    indent_str = ' ' * (indent * indent_level)
     result = []
     keys = sorted(set(d1.keys()).union(d2.keys()))
 
@@ -69,4 +68,3 @@ def compare_files_stylish(file1, file2, indent=4):
 
     result = compare_dicts(j_file1, j_file2, 0, indent)
     return '\n'.join(result)
-
