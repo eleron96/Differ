@@ -5,9 +5,8 @@ import gendiff.scripts.diff_json as diff_json
 import os
 
 
-def generate_diff():
+def generate_diff(args=None):
     parser = argparse.ArgumentParser(
-        prog='gendiff',
         description='Compares two configuration files and shows a difference.'
     )
     parser.add_argument('first_file', help='First file to compare')
@@ -15,7 +14,11 @@ def generate_diff():
     parser.add_argument('-f', '--format', dest='format',
                         default='stylish', help='set format of output')
 
-    args = parser.parse_args()
+    if args is None:
+        args = parser.parse_args()
+    else:
+        args = parser.parse_args(args)
+
     first_file_path = os.path.join('gendiff', args.first_file)
     second_file_path = os.path.join('gendiff', args.second_file)
 
