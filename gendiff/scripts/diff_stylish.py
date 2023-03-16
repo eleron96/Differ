@@ -36,7 +36,7 @@ def handle_both_keys(d1, d2, key, indent_level, indent):
         result.append(f"{indent_str}}}")
     elif format_value(d1[key]) != format_value(d2[key]):
         result.append(f"{indent_str}- {key}: {format_value(d1[key])}")
-        result.append(f"{indent_str}+ {key}: {format_value(d2[key])}")
+        result.append(f"{indent_str}+ {key}: {format_value(d2[key])}".replace('+', ' ', 1))
     else:
         result.append(f"{indent_str}  {key}: {format_value(d1[key])}")
 
