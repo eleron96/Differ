@@ -86,4 +86,4 @@ def compare_files_stylish(file1, file2, indent=4):
     j_file2 = load_file(file2)
 
     result = compare_dicts(j_file1, j_file2, 0, indent)
-    return '\n'.join(result)
+    return '{\n' + '\n'.join(result) + '\n}'
