@@ -35,8 +35,8 @@ def handle_both_keys(d1, d2, key, indent_level, indent):
         result.extend(compare_dicts(d1[key], d2[key], indent_level + 1, indent))
         result.append(f"{indent_str}}}")
     elif format_value(d1[key]) != format_value(d2[key]):
-        result.append(f"{indent_str}- {key}: {format_value(d1[key])}")
-        result.append(f"{indent_str}+ {key}: {format_value(d2[key])}")
+        result.append(f"{indent_str}Removed {key}: {format_value(d1[key])}")
+        result.append(f"{indent_str}Added {key}: {format_value(d2[key])}")
     else:
         result.append(f"{indent_str}  {key}: {format_value(d1[key])}")
 
@@ -48,11 +48,11 @@ def handle_key_in_d1(d1, key, indent_level, indent):
     indent_str = ' ' * (indent * indent_level)
 
     if isinstance(d1[key], dict):
-        result.append(f"{indent_str}- {key}: {{")
+        result.append(f"{indent_str}Removed {key}: {{")
         result.extend(compare_dicts(d1[key], {}, indent_level + 1, indent))
         result.append(f"{indent_str}}}")
     else:
-        result.append(f"{indent_str}- {key}: {format_value(d1[key])}")
+        result.append(f"{indent_str}Removed {key}: {format_value(d1[key])}")
 
     return result
 
@@ -62,11 +62,11 @@ def handle_key_in_d2(d2, key, indent_level, indent):
     indent_str = ' ' * (indent * indent_level)
 
     if isinstance(d2[key], dict):
-        result.append(f"{indent_str}+ {key}: {{")
+        result.append(f"{indent_str}Added {key}: {{")
         result.extend(compare_dicts({}, d2[key], indent_level + 1, indent))
         result.append(f"{indent_str}}}")
     else:
-        result.append(f"{indent_str}+ {key}: {format_value(d2[key])}")
+        result.append(f"{indent_str}Added {key}: {format_value(d2[key])}")
 
     return result
 
