@@ -55,8 +55,8 @@ def parse_arguments():
 
 
 def generate_diff(first_file, second_file, format='stylish'):
-    first_file_path = os.path.join('gendiff', first_file)
-    second_file_path = os.path.join('gendiff', second_file)
+    first_file_path = os.path.abspath(first_file)
+    second_file_path = os.path.abspath(second_file)
 
     if format == "stylish":
         return diff_stylish.compare_files_stylish(first_file_path, second_file_path)
