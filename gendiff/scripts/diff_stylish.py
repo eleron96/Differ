@@ -17,6 +17,15 @@ def compare_dicts(d1, d2, indent_level, indent):
     return result
 
 
+def format_value(value):
+    if isinstance(value, bool):
+        return str(value).lower()
+    elif value is None:
+        return 'null'
+    else:
+        return value
+
+
 def handle_both_keys(d1, d2, key, indent_level, indent):
     result = []
     indent_str = ' ' * (indent * indent_level)
@@ -25,11 +34,11 @@ def handle_both_keys(d1, d2, key, indent_level, indent):
         result.append(f"{indent_str}{key}: {{")
         result.extend(compare_dicts(d1[key], d2[key], indent_level + 1, indent))
         result.append(f"{indent_str}}}")
-    elif d1[key] != d2[key]:
-        result.append(f"{indent_str}- {key}: {d1[key]}")
-        result.append(f"{indent_str}+ {key}: {d2[key]}")
+    elif format_value(d1[key]) != format_value(d2[key]):
+        result.append(f"{indent_str}- {key}: {format_value(d1[key])}")
+        result.append(f"{indent_str}+ {key}: {format_value(d2[key])}")
     else:
-        result.append(f"{indent_str}  {key}: {d1[key]}")
+        result.append(f"{indent_str}  {key}: {format_value(d1[key])}")
 
     return result
 
@@ -43,7 +52,7 @@ def handle_key_in_d1(d1, key, indent_level, indent):
         result.extend(compare_dicts(d1[key], {}, indent_level + 1, indent))
         result.append(f"{indent_str}}}")
     else:
-        result.append(f"{indent_str}- {key}: {d1[key]}")
+        result.append(f"{indent_str}- {key}: {format_value(d1[key])}")
 
     return result
 
@@ -57,7 +66,7 @@ def handle_key_in_d2(d2, key, indent_level, indent):
         result.extend(compare_dicts({}, d2[key], indent_level + 1, indent))
         result.append(f"{indent_str}}}")
     else:
-        result.append(f"{indent_str}+ {key}: {d2[key]}")
+        result.append(f"{indent_str}+ {key}: {format_value(d2[key])}")
 
     return result
 
@@ -69,7 +78,7 @@ def load_file(file_path):
         elif file_path.endswith('.yml') or file_path.endswith('.yaml'):
             return yaml.safe_load(f)
         else:
-            raise ValueError('Unsupported file format')
+            raise ValueError("Unsupported file format")
 
 
 def compare_files_stylish(file1, file2, indent=4):
