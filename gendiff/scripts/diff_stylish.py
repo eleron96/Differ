@@ -114,9 +114,9 @@ def handle_both_keys(d1, d2, key, indent_level, indent):
     result = []
 
     if d1[key] == d2[key]:
-        result.append(indent * (indent_level - 1) + f'  {key}: {format_value(d1[key])}')
+        result.append(indent * indent_level + f'{key}: {format_value(d1[key])}')
     elif isinstance(d1[key], dict) and isinstance(d2[key], dict):
-        result.append(indent * indent_level + f'  {key}:')
+        result.append(indent * indent_level + f'{key}:')
         result.extend(compare_dicts(d1[key], d2[key], indent_level + 1, indent))
     else:
         result.append(indent * indent_level + f'- {key}: {format_value(d1[key])}')
@@ -129,7 +129,6 @@ def handle_key_in_d1(d1, key, indent_level, indent):
     return [indent * indent_level + f'- {key}: {format_value(d1[key])}']
 
 
-
 def handle_key_in_d2(d2, key, indent_level, indent):
     return [indent * indent_level + f'+ {key}: {format_value(d2[key])}']
 
@@ -138,4 +137,5 @@ def compare_files_stylish(file_path1, file_path2):
     d1 = load_data(file_path1)
     d2 = load_data(file_path2)
     result_lines = compare_dicts(d1, d2, 1, '  ')
-    return '{\n' + '\n'.join(result_lines).replace('  -', '-').replace('  +', '+') + '\n}'
+    return '{\n' + '\n'.join(result_lines) + '\n}'
+
