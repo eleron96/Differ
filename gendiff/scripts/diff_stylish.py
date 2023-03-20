@@ -137,4 +137,4 @@ def compare_files_stylish(file_path1, file_path2):
     d1 = load_data(file_path1)
     d2 = load_data(file_path2)
     result_lines = compare_dicts(d1, d2, 0, '    ')
-    return '{\n' + '\n'.join(result_lines) + '\n}'
+    return '{\n' + '\n'.join(result_lines).replace('  -', '-').replace('  +', '+') + '\n}'
