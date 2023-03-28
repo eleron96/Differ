@@ -4,7 +4,7 @@ import tempfile
 import gendiff.scripts.diff_json as diff_json
 import gendiff.scripts.diff_plain as diff_plain
 import gendiff.scripts.diff_stylish as diff_stylish
-from gendiff.scripts import gendiff as gn
+from gendiff.scripts import gen_diff as gn
 import pytest
 
 

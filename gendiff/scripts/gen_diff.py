@@ -33,6 +33,7 @@
 
 
 from gendiff.scripts import diff_stylish, diff_plain, diff_json
+import argparse
 import os
 
 def generate_diff(file_path1, file_path2, format_name='stylish'):
@@ -46,9 +47,7 @@ def generate_diff(file_path1, file_path2, format_name='stylish'):
     elif format_name == "json":
         return diff_json.compare_files_json(first_file_path, second_file_path)
 
-if __name__ == '__main__':
-    import argparse
-
+def main():
     parser = argparse.ArgumentParser(
         prog='gendiff',
         description='Compares two configuration files and shows a difference.'
@@ -62,3 +61,9 @@ if __name__ == '__main__':
 
     diff = generate_diff(args.first_file, args.second_file, args.format)
     print(diff)
+
+
+if __name__ == '__main__':
+    main()
+
+
