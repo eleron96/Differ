@@ -1,44 +1,42 @@
-import json
+def stringify(value):
+    if isinstance(value, (dict, list)):
+        return "[complex value]"
+    elif value is None:
+        return 'null'
+    elif value is True:
+        return "true"
+    elif value is False:
+        return "false"
+    else:
+        return str(value)
 
 
-def load_json_file(file_path):
-    with open(file_path) as f:
-        return json.load(f)
-
-
-def compare_values(val1, val2, path):
-    if val1 == val2:
-        return []
-    if isinstance(val1, dict) and isinstance(val2, dict):
-        return compare_dicts(val1, val2, path)
-    if isinstance(val1, dict):
-        return [f"Property '{path}' was updated. "
-                f"From [complex value] to {val2}"]
-    return [f"Property '{path}' was updated. "
-            f"From {val1} to {val2}"]
-
-
-def compare_dicts(d1, d2, path=''):
+def render(tree, path_key=""):
     result = []
-    keys = sorted(set(d1.keys()).union(d2.keys()))
-    for key in keys:
-        p = f"{path}.{key}" if path else key
-        if key in d1 and key in d2:
-            result.extend(compare_values(d1[key], d2[key], p))
-        elif key in d1:
-            result.append(f"Property '{p}' was removed")
-        elif key in d2:
-            value = d2[key]
-            if isinstance(value, dict):
-                result.append(f"Property '{p}' was added with value: "
-                              f"[complex value]")
-            else:
-                result.append(f"Property '{p}' was added with value: {value}")
+
+    if 'key' in tree:
+        path_key = f"{path_key}.{tree['key']}" if path_key else tree['key']
+
+    children = tree.get('children', [])
+    for child in children:
+        result += render(child, path_key)
+
+    node_type = tree['type']
+    if node_type == 'added':
+        value = stringify(tree['value'])
+        if value == '[complex value]':
+            result.append(f"Property '{path_key}' was added with value: {value}")
+        else:
+            result.append(f"Property '{path_key}' was added with value: '{value}'")
+    elif node_type == 'removed':
+        result.append(f"Property '{path_key}' was removed")
+    elif node_type == 'changed':
+        value_1 = stringify(tree['value_1'])
+        value_2 = stringify(tree['value_2'])
+        if value_1 == '[complex value]':
+            result.append(f"Property '{path_key}' was updated. From {value_1} to '{value_2}")
+        else:
+            result.append(f"Property '{path_key}' was updated. From '{value_1}' to '{value_2}'")
+    elif node_type == 'no_changes':
+        pass
     return result
-
-
-def compare_files_plain(file_path1, file_path2):
-    j_file1 = load_json_file(file_path1)
-    j_file2 = load_json_file(file_path2)
-    result = compare_dicts(j_file1, j_file2)
-    return '\n'.join(result)
