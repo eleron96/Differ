@@ -1,9 +1,7 @@
-import os
 import json
 import tempfile
 from gendiff.scripts import gen_diff as gn
 import pytest
-
 
 
 def test_compare_files():
@@ -18,13 +16,6 @@ def test_compare_files():
     with open("file2.json", "w") as file2:
         json.dump({'key1': 'value1', 'key2': 'value3'}, file2)
 
-    # call the compare_files function with the two files
-    # diff_json.compare_files_json(file1.name, file2.name)
-    # diff_plain.compare_files_plain(file1.name, file2.name)
-    # diff_stylish.compare_files_stylish(file1.name, file2.name)
-    # os.unlink(file1.name)
-    # os.unlink(file2.name)
-
 
 def test_main_no_args(capsys):
     with pytest.raises(SystemExit):
@@ -32,6 +23,3 @@ def test_main_no_args(capsys):
     captured = capsys.readouterr()
     assert captured.err.startswith("usage: gendiff")
     assert captured.out == ""
-
-
-
