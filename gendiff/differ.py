@@ -2,13 +2,13 @@ def node_processing(data1, data2):
     childrens = []
     keys = sorted(data1.keys() | data2.keys())
     for key in keys:
-        if key not in data2: # key not in second file
+        if key not in data2:  # key not in second file
             childrens.append({
                 'type': 'removed',
                 'key': key,
                 'value': data1[key]
             })
-        elif key not in data1: # key added
+        elif key not in data1:  # key added
             childrens.append({
                 'type': 'added',
                 'key': key,
@@ -35,11 +35,9 @@ def node_processing(data1, data2):
             })
     return childrens
 
+
 def build(data1, data2):
     return {
         'type': 'differ',
         'children': node_processing(data1, data2)
     }
-
-
-

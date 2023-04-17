@@ -1,9 +1,3 @@
-
-def bool_converter(value):
-    if value:
-        return "true"
-    return "false"
-
 def build_ident(depth, marker=' '):
     return ' ' * (depth * 4 - 2) + f"{marker} "
 
@@ -12,7 +6,7 @@ def stringify(value, depth=1):
     if value is None:
         return 'null'
     if isinstance(value, bool):
-        return bool_converter(value)
+        return "true" if value else "false"
     if not isinstance(value, dict):
         return str(value)
     lines = []
