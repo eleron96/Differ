@@ -4,7 +4,7 @@ from gendiff.formaters.diff_stylish import build_ident as stylish_build_ident
 from gendiff.formaters.diff_stylish import stringify as stylish_stringify
 import pytest
 
-
+# flake 8: noqa: E126
 def test_stringify():
     assert stringify(None) == 'null'
     assert stringify(True) == 'true'
