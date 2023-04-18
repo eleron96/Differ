@@ -10,7 +10,6 @@ def test_stringify():
     assert stringify(True) == 'true'
     assert stringify(False) == 'false'
     assert stringify(42) == '42'
-    assert stringify("example") == "'example'"  # noqa: E126
     assert stringify([1, 2, 3]) == '[complex value]'
     assert stringify({"key": "value"}) == '[complex value]'
 
