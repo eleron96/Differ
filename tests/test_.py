@@ -1,4 +1,3 @@
-import json
 from gendiff.formaters.diff_plain import stringify, render
 from gendiff.formaters.diff_stylish import render as stylish_render
 from gendiff.formaters.diff_stylish import build_ident as stylish_build_ident
@@ -65,7 +64,6 @@ def test_stylish_stringify():
         '        key: value\n'
         '    }'
     )
-
 
 
 @pytest.mark.parametrize("tree, expected_output", [
