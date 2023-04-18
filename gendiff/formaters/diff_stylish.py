@@ -18,7 +18,7 @@ def stringify(value, depth=1):
     return f'{{\n{result}\n{build_ident(depth)}}}'
 
 
-def render(tree, depth=0):
+def render(tree, depth=0):  # noqa: C901
     children = tree.get('children')
     value = stringify(tree.get('value'), depth=depth)
     value_1 = stringify(tree.get('value_1'), depth=depth)
@@ -33,7 +33,6 @@ def render(tree, depth=0):
         result = "\n".join(lines)
 
         return f'{{\n{result}\n}}'
-
     elif node_type == "nest":
         lines = map(lambda node: render(node, depth + 1), children)
         result = "\n".join(lines)
@@ -51,7 +50,6 @@ def render(tree, depth=0):
             f'{ident_plus}{tree["key"]}: {value_2}'
         ]
         return '\n'.join(lines)
-
     elif node_type == "no_changes":
         return f'{ident}{tree["key"]}: {value}'
 

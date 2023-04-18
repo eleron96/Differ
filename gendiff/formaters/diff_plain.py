@@ -13,7 +13,7 @@ def stringify(value):
         return str(value)
 
 
-def render(tree, path_key=""):
+def render(tree, path_key=""):    # noqa: C901
     result = []
 
     if 'key' in tree:
