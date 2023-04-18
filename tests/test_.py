@@ -4,13 +4,13 @@ from gendiff.formaters.diff_stylish import build_ident as stylish_build_ident
 from gendiff.formaters.diff_stylish import stringify as stylish_stringify
 import pytest
 
-# flake 8: noqa: E126
+
 def test_stringify():
     assert stringify(None) == 'null'
     assert stringify(True) == 'true'
     assert stringify(False) == 'false'
     assert stringify(42) == '42'
-    assert stringify("example") == "'example'"
+    assert stringify("example") == "'example'"  # noqa: E126
     assert stringify([1, 2, 3]) == '[complex value]'
     assert stringify({"key": "value"}) == '[complex value]'
 
