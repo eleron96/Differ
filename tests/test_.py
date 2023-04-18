@@ -13,7 +13,7 @@ def test_stringify():
     assert stringify([1, 2, 3]) == '[complex value]'
     assert stringify({"key": "value"}) == '[complex value]'
 
-
+# flake8 : noqa: E126
 @pytest.mark.parametrize("tree, expected_output", [
     (
             {"type": "no_changes"},
