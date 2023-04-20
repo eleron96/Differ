@@ -1,3 +1,4 @@
+
 # Вычислитель отличий
 
 #### Hexlet tests and linter status:
@@ -17,19 +18,13 @@ TBD
 
 Для вывода справочной информации по утилите, выполните следующую команду:
 
-Copy code
-
 `gendiff -h` 
 
 Программа принимает на вход два аргумента - пути до конфигурационных файлов, которые необходимо сравнить:
 
-Copy code
-
 `gendiff first_file second_file` 
 
 Результат сравнения может выводиться в разных форматах. Чтобы указать формат вывода, используйте опцию `--format`:
-
-Copy code
 
 `gendiff -f FORMAT first_file second_file` 
 
@@ -37,22 +32,18 @@ Copy code
 
 Сравнение плоских JSON-файлов:
 
-Copy code
-
 `gendiff filepath1.json filepath2.json` 
 
 Результат:
 
-yamlCopy code
-
-`{
-  - follow: false
-    host: hexlet.io
-  - proxy: 123.234.53.22
-  - timeout: 50
-  + timeout: 20
-  + verbose: true
-}` 
+    `{
+      - follow: false
+        host: hexlet.io
+      - proxy: 123.234.53.22
+      - timeout: 50
+      + timeout: 20
+      + verbose: true
+    }` 
 
 Здесь `-` означает, что ключ присутствует только в первом файле, `+` - что ключ присутствует только во втором файле. Если нет плюса или минуса, это означает, что ключ есть в обоих файлах и его значения совпадают.
 
@@ -63,25 +54,21 @@ yamlCopy code
 
 Чтобы использовать плоский формат, укажите опцию `--format plain`:
 
-cssCopy code
-
 `gendiff --format plain filepath1.json filepath2.json` 
 
 Результат:
 
-sqlCopy code
-
-`Property 'common.follow' was added with value: false
-Property 'common.setting2' was removed
-Property 'common.setting3' was updated. From true to null
-Property 'common.setting4' was added with value: 'blah blah'
-Property 'common.setting5' was added with value: [complex value]
-Property 'common.setting6.doge.wow' was updated. From '' to 'so much'
-Property 'common.setting6.ops' was added with value: 'vops'
-Property 'group1.baz' was updated. From 'bas' to 'bars'
-Property 'group1.nest' was updated. From [complex value] to 'str'
-Property 'group2' was removed
-Property 'group3' was added with value: [complex value]` 
+    Property 'common.follow' was added with value: false
+    Property 'common.setting2' was removed
+    Property 'common.setting3' was updated. From true to null
+    Property 'common.setting4' was added with value: 'blah blah'
+    Property 'common.setting5' was added with value: [complex value]
+    Property 'common.setting6.doge.wow' was updated. From '' to 'so much'
+    Property 'common.setting6.ops' was added with value: 'vops'
+    Property 'group1.baz' was updated. From 'bas' to 'bars'
+    Property 'group1.nest' was updated. From [complex value] to 'str'
+    Property 'group2' was removed
+    Property 'group3' was added with value: [complex value]
 
 В плоском формате:
 
