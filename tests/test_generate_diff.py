@@ -1,4 +1,3 @@
-import pytest
 import json
 from faker import Faker
 from gendiff import generate_diff
