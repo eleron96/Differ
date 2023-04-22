@@ -7,3 +7,11 @@
 /tests/__pycache__/*
 /.mypy_cache/*
 /.pytest_cache/*
+.coverage
+coverage.xml
+test-reporter-coverege
+requirements.txt
+file1.json
+file2.json
+file1.yaml
+file2.yaml
